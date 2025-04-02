@@ -5,6 +5,10 @@ description = "Packaged Ensemble methods for Deep Learning frameworks"
 authors = ["Daniel Hewitt <dan.hewitt.15@ucl.ac.uk>"]
 readme = "README.md"
 
+packages = [
+  { include = "*", from = "src" }
+]
+
 [tool.poetry.dependencies]
 python = "^3.12"
 numpy = "^2.1.3"

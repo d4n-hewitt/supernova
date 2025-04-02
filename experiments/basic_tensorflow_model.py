@@ -4,6 +4,7 @@ import pandas as pd
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from src.base_learners.tensorflow import MLP
 
 # ------------------------------------------------------------------
 # 1. Fetch a dummy dataset from the web
@@ -48,17 +49,7 @@ X_test = scaler.transform(X_test)
 # ------------------------------------------------------------------
 # 3. Build a simple Keras model
 # ------------------------------------------------------------------
-model = tf.keras.Sequential([
-    tf.keras.layers.Dense(16, activation='relu', input_shape=(X_train.shape[1],)),
-    tf.keras.layers.Dense(8, activation='relu'),
-    tf.keras.layers.Dense(1, activation='sigmoid')  # Binary classification
-])
-
-model.compile(
-    optimizer='adam',
-    loss='binary_crossentropy',
-    metrics=['accuracy']
-)
+model = MLP(input_shape=X_train.shape[1], output_shape=1)
 
 model.summary()  # Print a simple summary
 
