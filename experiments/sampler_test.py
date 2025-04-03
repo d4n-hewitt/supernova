@@ -1,7 +1,8 @@
 from src.data_utils.sampling import Sampler
 
-data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-sampler = Sampler(data)
+X = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+y = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+sampler = Sampler(X, y)
 
 num_samples = 3
 sampled_with_replacement = sampler.sample_with_replacement(num_samples)

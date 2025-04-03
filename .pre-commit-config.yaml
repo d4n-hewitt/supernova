@@ -20,6 +20,7 @@ repos:
         require_serial: true
         types_or: [python, pyi]
         files: ^src|^experiments
+        args: [--line-length=79]
         # exclude: (^SQLBuilder/(.*main\.py|tests/conftest\.py)$|^Frontend/app\.py$|^.*README\..*$|^.*\.sql$|^.*\.yml$)
 
       - id: isort

@@ -17,7 +17,7 @@ class MLP:
             optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"]
         )
 
-    def fit(self, X, y, epochs=100, batch_size=10, validation_split=0.1):
+    def fit(self, X, y, epochs=10, batch_size=10, validation_split=0.1):
         self.model.fit(
             X,
             y,

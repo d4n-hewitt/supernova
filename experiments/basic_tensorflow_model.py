@@ -3,10 +3,12 @@ import io
 import pandas as pd
 import requests
 import tensorflow as tf
+from sklearn.metrics import accuracy_score, log_loss
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 from src.base_learners.tensorflow import MLP
+from src.ensembling.bagging import BaggingClassifier
 
 # ------------------------------------------------------------------
 # 1. Fetch a dummy dataset from the web
@@ -55,21 +57,36 @@ model = MLP(input_shape=X_train.shape[1], output_shape=1)
 
 model.summary()  # Print a simple summary
 
+print("Creating ensemble")
+ensemble = BaggingClassifier(
+    base_estimator=MLP,
+    n_estimators=2,
+    sample_fraction=0.7,
+)
+
 # ------------------------------------------------------------------
 # 4. Train the model
 # ------------------------------------------------------------------
-history = model.fit(
-    X_train,
-    y_train,
-    epochs=10,  # small number of epochs for demo
-    batch_size=32,
-    validation_split=0.1,  # track validation performance
-)
+# history = model.fit(
+#     X_train,
+#     y_train,
+#     epochs=10,  # small number of epochs for demo
+#     batch_size=32,
+#     validation_split=0.1,  # track validation performance
+# )
+
+print("Training ensemble")
+ensemble.fit(X_train, y_train)
 
 # ------------------------------------------------------------------
 # 5. Evaluate on the test set
 # ------------------------------------------------------------------
-loss, accuracy = model.evaluate(X_test, y_test)
+# loss, accuracy = model.evaluate(X_test, y_test)
+predictions = ensemble.predict(X_test)
+loss = log_loss(y_test, predictions)
+predictions = (predictions > 0.5).astype(int)
+accuracy = accuracy_score(y_test, predictions)
+
 print(f"Test Loss: {loss:.4f}")
 print(f"Test Accuracy: {accuracy:.4f}")
 
