@@ -10,7 +10,7 @@ print("Sampled with replacement:", sampled_with_replacement)
 print("Sampled without replacement:", sampled_without_replacement)
 
 
-num_samples = sampler.calculate_sample_size(0.5)
+num_samples = sampler.calculate_sample_size(0.3)
 sampled_with_replacement = sampler.sample_with_replacement(num_samples)
 sampled_without_replacement = sampler.sample_without_replacement(num_samples)
 print("Sampled with replacement:", sampled_with_replacement)
