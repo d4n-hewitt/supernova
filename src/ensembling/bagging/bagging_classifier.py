@@ -1,3 +1,5 @@
+from sklearn.metrics import accuracy_score, log_loss
+
 from src.data_utils.sampling import Sampler
 
 
@@ -51,3 +53,20 @@ class BaggingClassifier:
         predictions = [model.predict(X) for model in self.models]
         # Average the predictions from all models
         return sum(predictions) / len(predictions)
+
+    def evaluate(self, X, y):
+        """
+        Evaluate the BaggingClassifier.
+
+        Args:
+            X: Feature data.
+            y: Target labels.
+
+        Returns:
+            tuple: Loss and accuracy.
+        """
+        predictions = self.predict(X)
+        loss = log_loss(y, predictions)
+        predictions = (predictions > 0.5).astype(int)
+        accuracy = accuracy_score(y, predictions)
+        return loss, accuracy
