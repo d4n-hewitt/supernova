@@ -1,0 +1,1 @@
+poetry version minor

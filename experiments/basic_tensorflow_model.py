@@ -73,7 +73,7 @@ ensemble.fit(X_train, y_train)
 # ------------------------------------------------------------------
 # 5. Evaluate on the test set
 # ------------------------------------------------------------------
-loss, accuracy = ensemble.evaluate(X_test, y_test)
+loss, accuracy = ensemble.evaluate(X_test, y_test, combination_method="median")
 
 print(f"Test Loss: {loss:.4f}")
 print(f"Test Accuracy: {accuracy:.4f}")
