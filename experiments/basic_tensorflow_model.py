@@ -1,15 +1,17 @@
-import requests
 import io
+
 import pandas as pd
+import requests
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+
 from src.base_learners.tensorflow import MLP
 
 # ------------------------------------------------------------------
 # 1. Fetch a dummy dataset from the web
 # ------------------------------------------------------------------
-url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv"
+url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv"  # noqa
 response = requests.get(url)
 response.raise_for_status()  # Ensure the download was successful
 
@@ -23,7 +25,7 @@ column_names = [
     "bmi",
     "diabetes_pedigree",
     "age",
-    "outcome"  # 1 = positive test for diabetes, 0 = negative
+    "outcome",  # 1 = positive test for diabetes, 0 = negative
 ]
 
 # Load CSV data into a pandas DataFrame
@@ -59,9 +61,9 @@ model.summary()  # Print a simple summary
 history = model.fit(
     X_train,
     y_train,
-    epochs=10,            # small number of epochs for demo
-    batch_size=32, 
-    validation_split=0.1  # track validation performance
+    epochs=10,  # small number of epochs for demo
+    batch_size=32,
+    validation_split=0.1,  # track validation performance
 )
 
 # ------------------------------------------------------------------
