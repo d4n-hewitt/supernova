@@ -1,0 +1,38 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^.*README\..*$|^.*\.sql$
+      - id: end-of-file-fixer
+        exclude: ^.*README\..*$|^.*\.sql$
+      - id: check-added-large-files
+        exclude: ^.*README\..*$|^.*\.sql$
+
+  - repo: local
+    hooks:
+      - id: black
+        name: black
+        description: "Black: The uncompromising Python code formatter"
+        entry: black
+        language: python
+        minimum_pre_commit_version: 2.9.2
+        require_serial: true
+        types_or: [python, pyi]
+        files: ^src|^experiments
+        # exclude: (^SQLBuilder/(.*main\.py|tests/conftest\.py)$|^Frontend/app\.py$|^.*README\..*$|^.*\.sql$|^.*\.yml$)
+
+      - id: isort
+        name: isort (python)
+        entry: isort
+        language: python
+        types: [python]
+        files: ^src|^experiments
+        # exclude: (^SQLBuilder/(.*main\.py|tests/conftest\.py)$|^Frontend/app\.py$|^.*README\..*$|^.*\.sql$|^.*\.yml$)
+
+      - id: flake8
+        name: flake8
+        entry: flake8
+        language: python
+        files: ^src|^experiments
+        exclude: (^.*README\..*$)

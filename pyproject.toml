@@ -6,7 +6,7 @@ authors = ["Daniel Hewitt <dan.hewitt.15@ucl.ac.uk>"]
 readme = "README.md"
 
 packages = [
-  { include = "*", from = "src" }
+  { include = "src" }
 ]
 
 [tool.poetry.dependencies]
@@ -17,6 +17,11 @@ tensorflow-metal = "^1.2.0"
 pandas = "^2.2.3"
 scikit-learn = "^1.6.1"
 
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.2.0"
+black = "^25.1.0"
+isort = "^6.0.1"
 
 [build-system]
 requires = ["poetry-core"]
