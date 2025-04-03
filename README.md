@@ -2,7 +2,7 @@
 
 ## Design plan
 
-### Ensemble models trained with different batches of one data source
+### Ensemble models trained with different batches of one data source (Bagging)
 
 - Create a sampler class to allow sampling with and without replacement [Complete]
 - Create a framework to take in a base learner and train it with a sampled data set [Complete]
@@ -12,3 +12,8 @@
 - Add an Evaluation function which allows simpler evaluation on the test set
 - Expand aggregation options to allow for median, min, max
 - Expand aggregation options to allow for weighted means
+
+### Ensemble different model architectures (Voting)
+
+- Integrate combining PyTorch models with the standard Keras MLP
+- Integrate classical ML models such as XGB
