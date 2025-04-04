@@ -17,12 +17,18 @@
 
 - Create a framework to take in a base learner and train it with a full data set
 
-#### AdaBoost method
+#### DanBoost method
 
-- Create a method for identifying the misclassified examples
-- Allow extra parameterisation over misclassified examples e.g. thresholding
-- Implement a method for weighting misclassified samples higher in next iteration
-- Create a method for training the second base learner with these weighted samples
+- Create a method for calculating the error (abs diff between pred and label)
+- Allow extra parameterisation over error calculation
+- Implement a method for weighting samples in next iteration using error of previous iteration
+- Create a method for training the second base learner with all samples weighted by these errors
+- Add functionality to allow errors from previous iterations to be included
+- Add functionality to weight previous models errors in combination for current iteration training
+
+### AdaBoost method
+
+- Similar to DanBoost but use AdaBoost weighting methods
 
 #### XGBoost method
 
