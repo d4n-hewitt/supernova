@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class DanBoost:
     def __init__(self, base_estimator, n_estimators):
         self.base_estimator = base_estimator
@@ -16,5 +19,7 @@ class DanBoost:
         predictions = model.predict(X)
         return predictions
 
-    # def calc_error(self, X):
-    #     predictions = self.predict_latest_estimator(self, X)
+    def calc_error(self, X):
+        predictions = self.predict_latest_estimator(self, X)
+        errors = np.abs(predictions - X)
+        return errors
