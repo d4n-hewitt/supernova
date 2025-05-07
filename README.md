@@ -15,11 +15,11 @@
 
 ### Iterative multistage combination methods (Boosting)
 
-- Create a framework to take in a base learner and train it with a full data set
+- Create a framework to take in a base learner and train it with a full data set [Complete]
 
 #### DanBoost method
 
-- Create a method for calculating the error (abs diff between pred and label)
+- Create a method for calculating the error (abs diff between pred and label) [Complete]
 - Allow extra parameterisation over error calculation
 - Implement a method for weighting samples in next iteration using error of previous iteration
 - Create a method for training the second base learner with all samples weighted by these errors
