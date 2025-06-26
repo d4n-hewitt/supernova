@@ -10,8 +10,7 @@
 - Aggregate the outputs of the trained base-learners together (mean only) [Complete]
 - Add an Evaluation function which allows simpler evaluation on the test set [Complete]
 - Expand aggregation options to allow for median, min, max [Complete]
-
-- Expand aggregation options to allow for weighted means
+- Expand aggregation options to allow for weighted means [Complete]
 
 ### Iterative multistage combination methods (Boosting)
 
@@ -21,7 +20,7 @@
 
 - Create a method for calculating the error (abs diff between pred and label) [Complete]
 - Allow extra parameterisation over error calculation
-- Implement a method for weighting samples in next iteration using error of previous iteration
+- Implement a method for weighting samples in next iteration using error of previous iteration (feature level weights)
 - Create a method for training the second base learner with all samples weighted by these errors
 - Add functionality to allow errors from previous iterations to be included
 - Add functionality to weight previous models errors in combination for current iteration training
