@@ -9,7 +9,6 @@ class BaggingClassifier:
     def __init__(
         self,
         base_estimator,
-        feature_length,
         n_estimators=1,
         sample_fraction=0.8,
     ):
@@ -27,7 +26,6 @@ class BaggingClassifier:
         self.sample_fraction = sample_fraction
         self.models = []
         self.combination_method = "mean"
-        self.weights = np.zeros((feature_length,))
 
     def fit(self, X, y):
         """
