@@ -42,6 +42,8 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
+feature_length = X_train.shape[1]
+
 # ------------------------------------------------------------------
 # 3. Build a simple Keras model
 # ------------------------------------------------------------------
@@ -52,6 +54,7 @@ model.summary()
 print("Creating ensemble")
 ensemble = BaggingClassifier(
     base_estimator=MLP,
+    feature_length=feature_length,
     n_estimators=2,
     sample_fraction=0.7,
 )

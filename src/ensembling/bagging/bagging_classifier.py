@@ -27,7 +27,7 @@ class BaggingClassifier:
         self.sample_fraction = sample_fraction
         self.models = []
         self.combination_method = "mean"
-        self.weights = np.zeroes((feature_length,))
+        self.weights = np.zeros((feature_length,))
 
     def fit(self, X, y):
         """
