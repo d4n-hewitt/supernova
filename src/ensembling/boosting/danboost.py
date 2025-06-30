@@ -39,16 +39,30 @@ class DanBoost:
         predictions = model.predict(X)
         return predictions
 
-    def calc_error(self, X, y):
+    def calc_error(self, X, y, error_type="absolute"):
         """
         Calculate the absolute difference between predictions and labels
 
         Args:
             X: Feature data
             y: Target labels
+            error_type: Type of error to calculate (default is 'absolute')
         Returns:
-            errors: Absolute differences between predictions and labels
+            errors: Computed errors based on the specified error type
+        Raises:
+            ValueError: If an unsupported error type is provided
         """
-        predictions = self.predict_latest_estimator(self, X)
-        errors = np.abs(predictions - y)
-        return errors
+        error_type_dict = {
+            "absolute": lambda x: np.abs(x),
+            "squared": lambda x: np.square(x),
+        }
+        predictions = self.predict_latest_estimator(X)
+        differences = predictions - y
+
+        if error_type not in error_type_dict:
+            raise ValueError(
+                f"""Unsupported error type: {error_type}.
+                Supported types are: {list(error_type_dict.keys())}"""
+            )
+
+        return error_type_dict[error_type](differences)
