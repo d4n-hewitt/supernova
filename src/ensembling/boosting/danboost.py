@@ -39,13 +39,16 @@ class DanBoost:
         predictions = model.predict(X)
         return predictions
 
-    def calc_error(self, X):
+    def calc_error(self, X, y):
         """
         Calculate the absolute difference between predictions and labels
 
         Args:
             X: Feature data
+            y: Target labels
+        Returns:
+            errors: Absolute differences between predictions and labels
         """
         predictions = self.predict_latest_estimator(self, X)
-        errors = np.abs(predictions - X)
+        errors = np.abs(predictions - y)
         return errors
