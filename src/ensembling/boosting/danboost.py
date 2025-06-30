@@ -61,8 +61,37 @@ class DanBoost:
 
         if error_type not in error_type_dict:
             raise ValueError(
-                f"""Unsupported error type: {error_type}.
-                Supported types are: {list(error_type_dict.keys())}"""
+                f"Unsupported error type: {error_type}."
+                "Supported types are: {list(error_type_dict.keys())}"
             )
 
         return error_type_dict[error_type](differences)
+
+    def compute_sample_weights(self, errors, sample_scheme="linear"):
+        """
+        Compute sample weights based on errors
+
+        Args:
+            errors: Computed errors from the previous iteration
+            sample_scheme: Scheme for computing sample weights (default is 'linear')
+        Returns:
+            sample_weights: Computed sample weights based on the specified scheme
+        Raises:
+            ValueError: If an unsupported sample scheme is provided
+        """
+        sample_scheme_dict = {
+            "linear": lambda x: np.abs(x),
+            "exponential": lambda x: np.exp(x),
+        }
+
+        if sample_scheme not in sample_scheme_dict:
+            raise ValueError(
+                f"Unsupported sample scheme: {sample_scheme}."
+                f"Supported schemes are: {list(sample_scheme_dict.keys())}"
+            )
+
+        weights = (
+            sample_scheme_dict[sample_scheme](errors) + 1e-10
+        )  # Adding a small constant to avoid zero weights
+        normalised_weights = weights / np.sum(weights)
+        return normalised_weights
