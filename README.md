@@ -20,7 +20,7 @@
 
 - Create a method for calculating the error (abs diff between pred and label) [Complete]
 - Allow extra parameterisation over error calculation [Complete]
-- Implement a method for weighting samples in next iteration using error of previous iteration (feature level weights)
+- Implement a method for weighting samples in next iteration using error of previous iteration (feature level weights) [Complete]
 - Create a method for training the second base learner with all samples weighted by these errors
 - Add functionality to allow errors from previous iterations to be included
 - Add functionality to weight previous models errors in combination for current iteration training
