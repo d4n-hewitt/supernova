@@ -66,7 +66,7 @@ class DanBoost:
                     "The base estimator must implement a predict method."
                 )
         predictions = [model.predict(X) for model in self.models]
-        return np.mean(predictions, axis=0)
+        return np.mean(predictions, axis=0).reshape(-1)
 
     def calc_error(self, X, y, error_type="absolute"):
         """
@@ -85,7 +85,7 @@ class DanBoost:
             "absolute": lambda x: np.abs(x),
             "squared": lambda x: np.square(x),
         }
-        predictions = self.models[-1].predict(X)
+        predictions = self.models[-1].predict(X).reshape(-1)
         differences = predictions - y
 
         if error_type not in error_type_dict:
