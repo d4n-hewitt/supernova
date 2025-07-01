@@ -16,7 +16,7 @@
 
 - Create a framework to take in a base learner and train it with a full data set [Complete]
 
-#### DanBoost method
+#### DanBoost method :construction:
 
 - Create a method for calculating the error (abs diff between pred and label) [Complete]
 - Allow extra parameterisation over error calculation [Complete]
@@ -30,16 +30,16 @@
 - Residual based regression
 
 
-### AdaBoost method
+### AdaBoost method :x:
 
 - Similar to DanBoost but use AdaBoost weighting methods
 
-#### XGBoost method
+#### XGBoost method :x:
 
 - Identify residual errors
 - Train next model on residual errors
 
-### Ensemble different model architectures (Voting)
+### Ensemble different model architectures (Voting) :x:
 
 - Integrate combining PyTorch models with the standard Keras MLP
 - Integrate classical ML models such as XGB
