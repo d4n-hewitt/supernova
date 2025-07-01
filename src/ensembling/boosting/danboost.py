@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.metrics import accuracy_score, log_loss
 
 
 class DanBoost:
@@ -123,3 +124,19 @@ class DanBoost:
         )  # Adding a small constant to avoid zero weights
         normalised_weights = weights / np.sum(weights)
         return normalised_weights
+
+    def evaluate(self, X, y):
+        """
+        Evaluate the ensemble on the given data
+
+        Args:
+            X: Feature data
+            y: Target labels
+        Returns:
+            tuple: Loss and accuracy
+        """
+        predictions = self.predict_ensemble(X)
+        loss = log_loss(y, predictions)
+        predictions = (predictions > 0.5).astype(int)
+        accuracy = accuracy_score(y, predictions)
+        return (loss, accuracy)
