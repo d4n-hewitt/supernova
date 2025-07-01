@@ -1,6 +1,8 @@
 import numpy as np
 from sklearn.metrics import accuracy_score, log_loss
 
+from src.decorators import require_fitted
+
 
 class DanBoost:
     def __init__(self, base_estimator, n_estimators, initial_weights=None):
@@ -53,6 +55,7 @@ class DanBoost:
                 errors = self.calc_error(X, y)
                 self.sample_weights = self.compute_sample_weights(errors)
 
+    @require_fitted
     def predict_ensemble(self, X):
         """
         Predict using the ensemble of models
@@ -125,6 +128,7 @@ class DanBoost:
         normalised_weights = weights / np.sum(weights)
         return normalised_weights
 
+    @require_fitted
     def evaluate(self, X, y):
         """
         Evaluate the ensemble on the given data

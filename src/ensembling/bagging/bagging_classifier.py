@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score, log_loss
 
 from src.data_utils.sampling import Sampler
+from src.decorators import require_fitted
 
 
 class BaggingClassifier:
@@ -61,6 +62,7 @@ class BaggingClassifier:
         self.model_weights = inverse_losses / np.sum(inverse_losses)
         return self
 
+    @require_fitted
     def predict(self, X, combination_method=None):
         """
         Make mean predictions using the BaggingClassifier.
@@ -106,6 +108,7 @@ class BaggingClassifier:
 
         return result
 
+    @require_fitted
     def evaluate(self, X, y, combination_method=None):
         """
         Evaluate the BaggingClassifier.
