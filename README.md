@@ -24,6 +24,11 @@
 - Create a method for training the second base learner with all samples weighted by these errors
 - Add functionality to allow errors from previous iterations to be included
 - Add functionality to weight previous models errors in combination for current iteration training
+- Allow different basic averaging schemes for model ensemble other than mean
+- Add a weighted averaging scheme for model ensembling
+- Add early stopping
+- Residual based regression
+
 
 ### AdaBoost method
 
