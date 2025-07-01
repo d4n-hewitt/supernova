@@ -17,13 +17,22 @@ class MLP:
             optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"]
         )
 
-    def fit(self, X, y, epochs=20, batch_size=32, validation_split=0.2):
+    def fit(
+        self,
+        X,
+        y,
+        epochs=20,
+        batch_size=32,
+        validation_split=0.2,
+        sample_weight=None,
+    ):
         self.model.fit(
             X,
             y,
             epochs=epochs,
             batch_size=batch_size,
             validation_split=validation_split,
+            sample_weight=sample_weight,
         )
 
     def predict(self, X):
