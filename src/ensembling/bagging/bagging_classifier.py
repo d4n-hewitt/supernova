@@ -67,6 +67,7 @@ class BaggingClassifier:
 
         Args:
             X: Feature data.
+            combination_method (str): Method to combine predictions.
 
         Returns:
             list: Predicted labels.
@@ -112,6 +113,7 @@ class BaggingClassifier:
         Args:
             X: Feature data.
             y: Target labels.
+            combination_method (str): Method to combine predictions.
 
         Returns:
             tuple: Loss and accuracy.
