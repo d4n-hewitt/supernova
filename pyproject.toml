@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "supernova"
-version = "0.2.0"
+version = "0.3.0"
 description = "Packaged Ensemble methods for Deep Learning frameworks"
 authors = ["Daniel Hewitt <dan.hewitt.15@ucl.ac.uk>"]
 readme = "README.md"
