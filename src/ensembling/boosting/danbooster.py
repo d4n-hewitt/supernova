@@ -42,7 +42,9 @@ class DanBooster:
         )
 
         error_calculator = DBErrorCalculator(
-            error_type=error_type, sample_scheme=sample_scheme
+            error_type=error_type,
+            sample_scheme=sample_scheme,
+            error_combination="linear_decay",
         )
 
         for iteration in range(self.n_estimators):
@@ -59,10 +61,8 @@ class DanBooster:
 
             if iteration < self.n_estimators - 1:
                 predictions = model.predict(X).reshape(-1)
-                errors = error_calculator.calc_error(predictions, y)
-                self.sample_weights = error_calculator.compute_sample_weights(
-                    errors
-                )
+                error_calculator.calc_error(predictions, y)
+                self.sample_weights = error_calculator.compute_sample_weights()
 
     @require_fitted
     def predict_ensemble(self, X):
