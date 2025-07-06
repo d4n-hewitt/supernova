@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score, log_loss
 
 from src.decorators import require_fitted
+from src.ensembling.boosting.error_calculation import DBErrorCalculator
 
 
 class DanBooster:
@@ -39,6 +40,11 @@ class DanBooster:
         self.sample_weights = (
             self.initial_weights or np.ones(X.shape[0]) / X.shape[0]
         )
+
+        error_calculator = DBErrorCalculator(
+            error_type=error_type, sample_scheme=sample_scheme
+        )
+
         for iteration in range(self.n_estimators):
             model = self.base_estimator(input_shape=X.shape[1], output_shape=1)
             try:
@@ -52,8 +58,11 @@ class DanBooster:
             self.models.append(model)
 
             if iteration < self.n_estimators - 1:
-                errors = self.calc_error(X, y)
-                self.sample_weights = self.compute_sample_weights(errors)
+                predictions = model.predict(X).reshape(-1)
+                errors = error_calculator.calc_error(predictions, y)
+                self.sample_weights = error_calculator.compute_sample_weights(
+                    errors
+                )
 
     @require_fitted
     def predict_ensemble(self, X):
@@ -70,63 +79,6 @@ class DanBooster:
                 )
         predictions = [model.predict(X) for model in self.models]
         return np.mean(predictions, axis=0).reshape(-1)
-
-    def calc_error(self, X, y, error_type="absolute"):
-        """
-        Calculate the absolute difference between predictions and labels
-
-        Args:
-            X: Feature data
-            y: Target labels
-            error_type: Type of error to calculate (default is 'absolute')
-        Returns:
-            errors: Computed errors based on the specified error type
-        Raises:
-            ValueError: If an unsupported error type is provided
-        """
-        error_type_dict = {
-            "absolute": lambda x: np.abs(x),
-            "squared": lambda x: np.square(x),
-        }
-        predictions = self.models[-1].predict(X).reshape(-1)
-        differences = predictions - y
-
-        if error_type not in error_type_dict:
-            raise ValueError(
-                f"Unsupported error type: {error_type}. "
-                f"Supported types are: {list(error_type_dict.keys())}"
-            )
-
-        return error_type_dict[error_type](differences)
-
-    def compute_sample_weights(self, errors, sample_scheme="linear"):
-        """
-        Compute sample weights based on errors
-
-        Args:
-            errors: Computed errors from the previous iteration
-            sample_scheme: Scheme for computing sample weights (default is 'linear')
-        Returns:
-            sample_weights: Computed sample weights based on the specified scheme
-        Raises:
-            ValueError: If an unsupported sample scheme is provided
-        """
-        sample_scheme_dict = {
-            "linear": lambda x: np.abs(x),
-            "exponential": lambda x: np.exp(x),
-        }
-
-        if sample_scheme not in sample_scheme_dict:
-            raise ValueError(
-                f"Unsupported sample scheme: {sample_scheme}. "
-                f"Supported schemes are: {list(sample_scheme_dict.keys())}"
-            )
-
-        weights = (
-            sample_scheme_dict[sample_scheme](errors) + 1e-10
-        )  # Adding a small constant to avoid zero weights
-        normalised_weights = weights / np.sum(weights)
-        return normalised_weights
 
     @require_fitted
     def evaluate(self, X, y):

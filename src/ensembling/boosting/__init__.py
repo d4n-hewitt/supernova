@@ -1,3 +1,3 @@
-from .danbooster import DanBooster
+from .danbooster import DanBooster, DBErrorCalculator
 
-__all__ = ["DanBooster"]
+__all__ = ["DanBooster", "DBErrorCalculator"]

@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 from src.base_learners.tensorflow import MLP
-from src.ensembling.boosting import DanBoost
+from src.ensembling.boosting import DanBooster
 
 # ------------------------------------------------------------------
 # 1. Fetch a dummy dataset from the web
@@ -50,7 +50,7 @@ model = MLP(input_shape=X_train.shape[1], output_shape=1)
 model.summary()
 
 print("Creating ensemble")
-ensemble = DanBoost(
+ensemble = DanBooster(
     base_estimator=MLP,
     n_estimators=4,
     initial_weights=None,
