@@ -4,7 +4,7 @@ from sklearn.metrics import accuracy_score, log_loss
 from src.decorators import require_fitted
 
 
-class DanBoost:
+class DanBooster:
     def __init__(self, base_estimator, n_estimators, initial_weights=None):
         """
         Initialise the Boosting Classifier

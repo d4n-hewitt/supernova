@@ -1,3 +1,3 @@
-from .danboost import DanBoost
+from .danbooster import DanBooster
 
-__all__ = ["DanBoost"]
+__all__ = ["DanBooster"]
