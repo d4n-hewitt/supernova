@@ -23,7 +23,7 @@
 - Implement a method for weighting samples in next iteration using error of previous iteration (feature level weights) [Complete]
 - Create a method for training the second base learner with all samples weighted by these errors [Complete]
 - Add functionality to allow errors from previous iterations to be included [Complete]
-- Add functionality to weight previous models errors in combination for current iteration training, so sample weights are calculated by weighted errors of all previous model iterations
+- Add functionality to weight previous models errors in combination for current iteration training, so sample weights are calculated by weighted errors of all previous model iterations [Complete]
 - Allow different basic averaging schemes for model ensemble other than mean
 - Add a weighted averaging scheme for model ensembling to give more priority to the first model that was trained
 - Add early stopping
