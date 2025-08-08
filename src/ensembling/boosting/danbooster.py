@@ -6,7 +6,13 @@ from src.ensembling.boosting.error_calculation import DBErrorCalculator
 
 
 class DanBooster:
-    def __init__(self, base_estimator, n_estimators, initial_weights=None):
+    def __init__(
+        self,
+        base_estimator,
+        n_estimators,
+        initial_weights=None,
+        combination_method="mean",
+    ):
         """
         Initialise the Boosting Classifier
 
@@ -20,7 +26,7 @@ class DanBooster:
         self.models = []
         self.sample_weights = None
         self.initial_weights = initial_weights
-        self.combination_method = "mean"
+        self.combination_method = combination_method
 
     def fit_ensemble(
         self, X, y, error_type="absolute", sample_scheme="linear", **fit_kwargs
