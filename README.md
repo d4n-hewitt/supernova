@@ -24,7 +24,7 @@
 - Create a method for training the second base learner with all samples weighted by these errors [Complete]
 - Add functionality to allow errors from previous iterations to be included [Complete]
 - Add functionality to weight previous models errors in combination for current iteration training, so sample weights are calculated by weighted errors of all previous model iterations [Complete]
-- Allow different basic averaging schemes for model ensemble other than mean
+- Allow different basic averaging schemes for model ensemble other than mean [Complete]
 - Add a weighted averaging scheme for model ensembling to give more priority to the first model that was trained
 - Add early stopping
 - Residual based regression
