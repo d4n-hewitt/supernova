@@ -20,6 +20,7 @@ class DanBooster:
         self.models = []
         self.sample_weights = None
         self.initial_weights = initial_weights
+        self.combination_method = "mean"
 
     def fit_ensemble(
         self, X, y, error_type="absolute", sample_scheme="linear", **fit_kwargs
@@ -65,7 +66,7 @@ class DanBooster:
                 self.sample_weights = error_calculator.compute_sample_weights()
 
     @require_fitted
-    def predict_ensemble(self, X):
+    def predict_ensemble(self, X, combination_method="mean"):
         """
         Predict using the ensemble of models
 
@@ -78,7 +79,23 @@ class DanBooster:
                     "The base estimator must implement a predict method."
                 )
         predictions = [model.predict(X) for model in self.models]
-        return np.mean(predictions, axis=0).reshape(-1)
+
+        if combination_method is None:
+            combination_method = self.combination_method
+
+        aggregation_methods = {
+            "mean": lambda preds: np.mean(preds, axis=0).reshape(-1),
+            "median": lambda preds: np.median(preds, axis=0).reshape(-1),
+            "min": lambda preds: np.min(preds, axis=0).reshape(-1),
+            "max": lambda preds: np.max(preds, axis=0).reshape(-1),
+        }
+
+        if combination_method in aggregation_methods:
+            aggregated_result = aggregation_methods[combination_method](
+                predictions
+            )
+
+        return aggregated_result
 
     @require_fitted
     def evaluate(self, X, y):
@@ -91,7 +108,7 @@ class DanBooster:
         Returns:
             tuple: Loss and accuracy
         """
-        predictions = self.predict_ensemble(X)
+        predictions = self.predict_ensemble(X, "median")
         loss = log_loss(y, predictions)
         predictions = (predictions > 0.5).astype(int)
         accuracy = accuracy_score(y, predictions)
